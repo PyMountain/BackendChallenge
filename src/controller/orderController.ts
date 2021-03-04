@@ -46,20 +46,19 @@ export default class OrderController {
   async getOrders(): Promise<Order[]> {
     const allOrders = await OrderCollection.find({});
 
-    if(allOrders.length > 0) return allOrders
+    if(allOrders && allOrders.length > 0) return allOrders
     else throw new AppError('Failed to retrieve orders from the database', 500) 
   }
 
   /**
-   * retrieves an order by a given id or _id
+   * Retrieves an order by a given id or _id
    * 
    * @param id id or _id of the required order
    */
   async getOrderById(id: string): Promise<Order> {
     const order = await OrderCollection.findOne({$or: [{_id: id}, {id: id}]});
 
-    if(!order) throw new AppError(`Failed to retrieve order with id ${id} from the database`, 404);
-
-    return order;
+    if(order) return order
+    else throw new AppError(`Failed to retrieve order with id ${id} from the database`, 404)
   }
 }

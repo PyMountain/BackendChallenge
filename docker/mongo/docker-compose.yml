@@ -1,0 +1,8 @@
+services:
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27020:27017"
+    command: mongod --dbpath /data/db
+    volumes:
+      - ./data/mongodb:/data/db

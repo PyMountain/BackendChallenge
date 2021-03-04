@@ -1,6 +1,6 @@
 import mongoose, { Schema, Document } from 'mongoose';
 import { Product } from './product'
-import AutoIncrement from 'mongoose-sequence'
+const AutoIncrement = require('mongoose-sequence')(mongoose)
 const Double = require('@mongoosejs/double');
 
 export interface Order {
