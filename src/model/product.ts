@@ -1,5 +1,4 @@
 import mongoose, { Schema, Document } from 'mongoose';
-const Double = require('@mongoosejs/double');
 
 export interface Product {
   name: string,
@@ -16,7 +15,7 @@ const ProductSchema = new Schema({
     unique: true
   },
   price: {
-    type: Double,
+    type: Number,
     required: true
   },
   quantity: {

@@ -7,13 +7,13 @@ import { processStockQueue } from './util/amqpUtils';
 import { handleException } from './util/middlewares';
 import config from './util/config';
 
-const MONGO_URL = `mongodb://${config.dbConfig.port}:${config.dbConfig.port}/${config.dbConfig.database}`;
+const MONGO_URL = `mongodb://${config.dbConfig.url}:${config.dbConfig.port}/${config.dbConfig.database}`;
 const APP_PORT = config.appPort;
 const INCREASE_QUEUE = config.stockIncreaseQueueName;
 const DECREASE_QUEUE = config.stockDecreaseQueueName;
 
 //App configuration
-const app = express();
+export const app = express();
 app.use(bodyParser.urlencoded({
   extended: true
 }));
@@ -51,7 +51,7 @@ amqp.connect(config.amqpConfig, function(err, conn) {
 
     ch.assertQueue(INCREASE_QUEUE, {durable: true}, (err, q) => {
       if(err) {
-        console.log(`FAILED TO CONECT TO QUEUE ${INCREASE_QUEUE}, ${err}`);
+        console.log(`FAILED TO CONNECT TO QUEUE ${INCREASE_QUEUE}, ${err}`);
         return;
       }
 
@@ -62,7 +62,7 @@ amqp.connect(config.amqpConfig, function(err, conn) {
 
     ch.assertQueue(DECREASE_QUEUE, {durable: true}, (err, q) => {
       if(err) {
-        console.log(`FAILED TO CONECT TO QUEUE ${DECREASE_QUEUE}, ${err}`);
+        console.log(`FAILED TO CONNECT TO QUEUE ${DECREASE_QUEUE}, ${err}`);
         return;
       }
 

@@ -1,11 +1,10 @@
 import mongoose, { Schema, Document } from 'mongoose';
 import { Product } from './product'
-const AutoIncrement = require('mongoose-sequence')(mongoose)
-const Double = require('@mongoosejs/double');
+const AutoIncrement = require('mongoose-sequence')(mongoose);
 
 export interface Order {
   products: Product[],
-  total: number,
+  total: number
 }
 
 export interface OrderDocument extends Order, Document {};
@@ -16,7 +15,7 @@ const OrderSchema = new Schema({
     required: true
   },
   total: {
-    type: Double,
+    type: Number,
     required: true
   },
 },
